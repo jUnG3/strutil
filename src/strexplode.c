@@ -5,7 +5,8 @@ explode_t *strexplode(char *src, char *delimiter)
 {
     explode_t *e = malloc(sizeof(explode_t *));
 
-    if (e == NULL) {
+    if (e == NULL)
+    {
         free(e);
         return NULL;
     }
@@ -19,6 +20,7 @@ explode_t *strexplode(char *src, char *delimiter)
     if (e->result == NULL)
     {
         free(e->result);
+        free(e);
         return NULL;
     }
 
@@ -41,6 +43,10 @@ explode_t *strexplode(char *src, char *delimiter)
             e->result = (char **)realloc(e->result, ++e->size * sizeof(char *));
             if (e->result == NULL)
             {
+                for (int j = 0; j < e->size; j++)
+                {
+                    free(e->result[j]);
+                }
                 free(e->result);
                 free(e);
                 return NULL;
