@@ -35,6 +35,7 @@ strutil_h=./include/strutil.h
 # #######
 strexplode_c=$(SRC)/strexplode.c
 trim_c=$(SRC)/trim.c
+explode_free_c=$(SRC)/explode_free.c
 
 # test sources
 # #######
@@ -44,10 +45,12 @@ test_runner_c=$(TEST_SRC)/test_runner.c
 # #######
 strexplode_o=$(BIN)/strexplode.o
 trim_o=$(BIN)/trim.o
+explode_free_o=$(BIN)/explode_free.o
 
 OBJ=\
  $(strexplode_o)\
- $(trim_o)
+ $(trim_o)\
+ $(explode_free_o)
 
 # action
 # ######
@@ -81,6 +84,9 @@ $(strexplode_o): $(strexplode_c)
 
 $(trim_o): $(trim_c)
 	$(CC) $(CFLAGS) $@ $(trim_c)
+
+$(explode_free_o): $(explode_free_c)
+	$(CC) $(CFLAGS) $@ $(explode_free_c)
 
 $(TARGET_TEST_RUNNER): $(test_runner_c) $(OBJ)
 	$(CC) $(INC) -o $@ $(test_runner_c) $(OBJ) -lcunit

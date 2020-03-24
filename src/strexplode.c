@@ -1,5 +1,5 @@
 #include <string.h>
-#include <strutil.h>
+#include "strutil.h"
 
 explode_t *strexplode(char *src, char *delimiter)
 {
@@ -7,7 +7,7 @@ explode_t *strexplode(char *src, char *delimiter)
 
     if (e == NULL)
     {
-        free(e);
+        strexplode_free(e);
         return NULL;
     }
 
@@ -19,8 +19,7 @@ explode_t *strexplode(char *src, char *delimiter)
 
     if (e->result == NULL)
     {
-        free(e->result);
-        free(e);
+        strexplode_free(e);
         return NULL;
     }
 
@@ -43,12 +42,7 @@ explode_t *strexplode(char *src, char *delimiter)
             e->result = (char **)realloc(e->result, ++e->size * sizeof(char *));
             if (e->result == NULL)
             {
-                for (int j = 0; j < e->size; j++)
-                {
-                    free(e->result[j]);
-                }
-                free(e->result);
-                free(e);
+                strexplode_free(e);
                 return NULL;
             }
         }
