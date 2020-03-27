@@ -11,8 +11,8 @@ explode_t *strexplode(char *src, char *delimiter)
         return NULL;
     }
 
-    e->size = 1;
-    e->result = malloc(e->size * sizeof(char *));
+    e->size = 0;
+    e->result = malloc(sizeof(char *));
 
     char *r;
     int i = 0;
@@ -23,6 +23,7 @@ explode_t *strexplode(char *src, char *delimiter)
         strexplode_free(e);
         return NULL;
     }
+    e->size = 1;
 
     if (!strcmp(delimiter, "\0") || !strcmp(src, "\0"))
     {
