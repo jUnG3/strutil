@@ -12,10 +12,11 @@ explode_t *strexplode(char *src, char *delimiter)
     }
 
     e->size = 1;
-    e->result = malloc(e->size * sizeof(char));
+    e->result = malloc(e->size * sizeof(char *));
 
     char *r;
-    int i = 0, length = 0, sum_length = 0;
+    int i = 0;
+    long length = 0, sum_length = 0;
 
     if (e->result == NULL)
     {
@@ -23,15 +24,9 @@ explode_t *strexplode(char *src, char *delimiter)
         return NULL;
     }
 
-    if (!strcmp(delimiter, "\0"))
+    if (!strcmp(delimiter, "\0") || !strcmp(src, "\0"))
     {
         e->result[0] = strdup(src);
-        return e;
-    }
-
-    if (!strcmp(src, "\0"))
-    {
-        e->result[0] = malloc(sizeof(char *));
         return e;
     }
 
@@ -39,12 +34,13 @@ explode_t *strexplode(char *src, char *delimiter)
     {
         if (i > 0)
         {
-            e->result = (char **)realloc(e->result, ++e->size * sizeof(char));
-            if (e->result == NULL)
+            char **new_ptr = realloc(e->result, ++e->size * sizeof(char *));
+            if (new_ptr == NULL)
             {
-                strexplode_free(e);
+                free(new_ptr);
                 return NULL;
             }
+            e->result = new_ptr;
         }
 
         r = i == 0 ? strstr(src, delimiter) : strstr(r + 1, delimiter);

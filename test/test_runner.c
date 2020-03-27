@@ -24,7 +24,8 @@ int main()
     }
 
     CU_add_test(pSuite, "explode_1_test", explode_1_test);
-    CU_add_test(pSuite, "explode_2_test", explode_1_test);
+    CU_add_test(pSuite, "explode_2_test", explode_2_test);
+    CU_add_test(pSuite, "explode_3_test", explode_3_test);
     CU_add_test(pSuite, "explode_empty_delimiter_test", explode_empty_delimiter_test);
     CU_add_test(pSuite, "explode_empty_src_test", explode_empty_src_test);
 
