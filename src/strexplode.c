@@ -58,12 +58,12 @@ explode_t *strexplode(char *src, char *delimiter)
 
         if (i == 0)
         {
-            length = abs(src - r);
+            length = labs(src - r);
             e->result[i] = strndup(src, length);
         }
         else
         {
-            length = abs(src + i + sum_length - r);
+            length = labs(src + i + sum_length - r);
             e->result[i] = strndup(r - length, length);
         }
 

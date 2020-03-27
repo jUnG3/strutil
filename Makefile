@@ -3,10 +3,47 @@ SRC=./src
 TEST_SRC=./test
 L_LIB=./lib
 LIBNAME=libstrutil
-TARGET=$(L_LIB)/$(LIBNAME).so
-INSTALL_TARGET=/usr/lib/$(LIBNAME).so
+LIBSUFIX :=
+LIBPATH :=
+
+INSTALL_TARGET :=
 TARGET_TEST_RUNNER=$(BIN)/test_runner
-INSTALL_HEADER=/usr/include/strutil.h
+OSFLAG :=
+ifeq ($(OS),Windows_NT)
+	OSFLAG += -D WIN32
+	ifeq ($(PROCESSOR_ARCHITECTURE),AMD64)
+		OSFLAG += -D AMD64
+	endif
+	ifeq ($(PROCESSOR_ARCHITECTURE),x86)
+		OSFLAG += -D IA32
+	endif
+else
+	UNAME_S := $(shell uname -s)
+	LIBPATH=/usr/local/lib
+	INSTALL_HEADER=/usr/local/include/strutil.h
+	ifeq ($(UNAME_S),Linux)
+		OSFLAG += -D LINUX
+		LIBSUFIX = so
+	endif
+	ifeq ($(UNAME_S),Darwin)
+		OSFLAG += -D OSX
+		LIBSUFIX = dylib
+	endif
+		UNAME_P := $(shell uname -p)
+	ifeq ($(UNAME_P),x86_64)
+		OSFLAG += -D AMD64
+	endif
+		ifneq ($(filter %86,$(UNAME_P)),)
+	OSFLAG += -D IA32
+		endif
+	ifneq ($(filter arm%,$(UNAME_P)),)
+		OSFLAG += -D ARM
+	endif
+endif
+
+TARGET=$(L_LIB)/$(LIBNAME).$(LIBSUFIX)
+INSTALL_TARGET=$(LIBPATH)/$(LIBNAME).$(LIBSUFIX)
+
 INC=\
  -I ./include
 
@@ -16,6 +53,7 @@ CFLAGS=\
  -c\
  -fPIC\
  -Wall\
+ $(OSFLAG)\
  $(INC)\
  -o
 
@@ -24,7 +62,6 @@ LD=cc
 LDFLAGS=\
  -Wall\
  -shared\
- -Wl,-soname,$(LIBNAME).so\
  -o
 
 # header
@@ -65,14 +102,14 @@ clean:
 new: clean all
 
 install: $(TARGET)
-	cp $(TARGET) $(INSTALL_TARGET)
-	chmod 0755 $(INSTALL_TARGET)
 	cp $(strutil_h) $(INSTALL_HEADER)
 	chmod 0644 $(INSTALL_HEADER)
+	cp $(TARGET) $(INSTALL_TARGET)
+	chmod 0755 $(INSTALL_TARGET)
 
 uninstall: $(TARGET)
-	rm -f $(INSTALL_TARGET)
 	rm -f $(INSTALL_HEADER)
+	rm -f $(INSTALL_TARGET)
 
 test: new $(TARGET_TEST_RUNNER)
 	$(TARGET_TEST_RUNNER)
