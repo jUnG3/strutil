@@ -3,7 +3,7 @@
 
 explode_t *strexplode(char *src, char *delimiter)
 {
-    explode_t *e = malloc(sizeof(explode_t *));
+    explode_t *e = malloc(sizeof(explode_t));
 
     if (e == NULL)
     {
@@ -12,7 +12,7 @@ explode_t *strexplode(char *src, char *delimiter)
     }
 
     e->size = 1;
-    e->result = malloc(e->size * sizeof(char *));
+    e->result = malloc(e->size * sizeof(char));
 
     char *r;
     int i = 0, length = 0, sum_length = 0;
@@ -39,7 +39,7 @@ explode_t *strexplode(char *src, char *delimiter)
     {
         if (i > 0)
         {
-            e->result = (char **)realloc(e->result, ++e->size * sizeof(char *));
+            e->result = (char **)realloc(e->result, ++e->size * sizeof(char));
             if (e->result == NULL)
             {
                 strexplode_free(e);
