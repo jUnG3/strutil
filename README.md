@@ -1,5 +1,8 @@
 # strutil
-String util for C. The lib provides a `trim` and a `strexplode` function.
+String util for C. Provided functionality:
+* `strexplode`
+* `trim`
+* `strexplode_free`
 
 # Test
 Run the configured unit tests.

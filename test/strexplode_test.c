@@ -23,11 +23,12 @@ void explode_empty_src_test()
 
 void explode_1_test()
 {
-    char *src = "Hello World";
+    char *src = "Hello World! This is a message just for fun.\nI hope people using this project will have funwith it and it will solve their  problems.";
     explode_t *r = strexplode(src, " ");
     CU_ASSERT_STRING_EQUAL(r->result[0], "Hello");
-    CU_ASSERT_STRING_EQUAL(r->result[1], "World");
-    CU_ASSERT_EQUAL(r->size, 2);
+    CU_ASSERT_STRING_EQUAL(r->result[1], "World!");
+    CU_ASSERT_STRING_EQUAL(r->result[8], "fun.\nI");
+    CU_ASSERT_EQUAL(r->size, 25);
     strexplode_free(r);
 }
 

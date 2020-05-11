@@ -18,6 +18,8 @@ extern explode_t *strexplode(char *__restrict__ __src, char *__restrict__ __deli
 
 /*
  * Removes the beggining and trailing whitespaces and returns a pointer to a new string. Does not manipulate the __src.
+ * The memory for the result is dynamically allocated with malloc() and realloc().
+ * The caller should free the allocated memory.
  */
 extern char *trim(char *_src);
 
