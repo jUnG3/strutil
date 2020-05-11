@@ -19,3 +19,8 @@ make all
 ```bash
 sudo make install
 ```
+| OS | Header | Lib |
+| --- | --- | --- |
+| Linux | `/usr/local/include/strutil.h` | `/usr/local/lib/libstrutil.so` |
+| OSX | `/usr/local/include/strutil.h` | `/usr/local/lib/libstrutil.dylib` |
+| Windows | `` | `` |
