@@ -1,14 +1,15 @@
+#include "strexplode_test.h"
+#include "trim_test.h"
+#include <CUnit/Automated.h>
 #include <CUnit/Basic.h>
-#include <CUnit/Basic.h>
-#include "trim_test.c"
-#include "strexplode_test.c"
 
-int main()
+int
+main()
 {
     // Initialize the CUnit test registry
-    if (CUE_SUCCESS != CU_initialize_registry())
-    {
-        return CU_get_error(); // Sets the basic run mode, CU_BRM_VERBOSE will show maximum output of run details
+    if (CUE_SUCCESS != CU_initialize_registry()) {
+        return CU_get_error(); // Sets the basic run mode, CU_BRM_VERBOSE will
+                               // show maximum output of run details
     }
 
     CU_pSuite pSuite = NULL;
@@ -17,8 +18,7 @@ int main()
     pSuite = CU_add_suite("strutil", 0, 0);
 
     // Always check if add was successful
-    if (NULL == pSuite)
-    {
+    if (NULL == pSuite) {
         CU_cleanup_registry();
         return CU_get_error();
     }
@@ -26,7 +26,8 @@ int main()
     CU_add_test(pSuite, "explode_1_test", explode_1_test);
     CU_add_test(pSuite, "explode_2_test", explode_2_test);
     CU_add_test(pSuite, "explode_3_test", explode_3_test);
-    CU_add_test(pSuite, "explode_empty_delimiter_test", explode_empty_delimiter_test);
+    CU_add_test(
+      pSuite, "explode_empty_delimiter_test", explode_empty_delimiter_test);
     CU_add_test(pSuite, "explode_empty_src_test", explode_empty_src_test);
 
     CU_add_test(pSuite, "trim_empty_string_test", trim_empty_string_test);
@@ -39,7 +40,7 @@ int main()
     CU_basic_set_mode(CU_BRM_VERBOSE);
 
     // Configure filename
-    CU_set_output_filename("bin/Test");
+    CU_set_output_filename("Test");
 
     // Run the tests and show the run summary
     CU_basic_run_tests();
