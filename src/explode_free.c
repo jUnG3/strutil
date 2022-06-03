@@ -1,9 +1,9 @@
 #include "strutil.h"
 
-extern void strexplode_free(explode_t *e)
+extern void
+strexplode_free(explode_t* e)
 {
-    for (int i = 0; i < e->size; i++)
-    {
+    for (int i = 0; i < e->size; i++) {
         free(e->result[i]);
     }
     free(e);
