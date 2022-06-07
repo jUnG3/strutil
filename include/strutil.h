@@ -17,14 +17,15 @@ typedef struct explode_t
  * malloc() and realloc(). The caller should free the allocated memory.
  */
 extern explode_t*
-strexplode(char* __restrict__ __src, char* __restrict__ __delimeter);
+strexplode(char const* __restrict__ __src,
+           char const* __restrict__ __delimeter);
 
 /*
  * Removes the beggining and trailing whitespaces and returns a pointer to a new
  * string. Does not manipulate the __src.
  */
 extern char*
-trim(char* _src);
+trim(char const* _src);
 
 /*
  * Frees the allocated memory for the explode_t.
