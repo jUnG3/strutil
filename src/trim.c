@@ -3,10 +3,15 @@
 #include <strutil.h>
 
 char*
-trim(char* src)
+trim(char const* src)
 {
     if (*src == '\0') {
-        return src;
+        char* r = malloc(sizeof(char));
+        if (r != NULL) {
+            r[0] = '\0';
+            return r;
+        }
+        return NULL;
     }
 
     int i = 0, j = 0, length = strlen(src);
@@ -15,7 +20,7 @@ trim(char* src)
         return NULL;
     }
 
-    char* end = src + length - 1;
+    char const* end = src + length - 1;
 
     while (isspace(*(src + i))) {
         i++;

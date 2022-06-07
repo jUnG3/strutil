@@ -2,7 +2,7 @@
 #include <string.h>
 
 explode_t*
-strexplode(char* src, char* delimiter)
+strexplode(char const* src, char const* delimiter)
 {
     explode_t* e = malloc(sizeof(explode_t));
 

@@ -37,6 +37,6 @@ $ sudo cmake --build cmake-build-release --target install
 
 # Build dependencies
 
-| Name    | Description         | Condition                      |
-|---------|---------------------|--------------------------------|
-| `cunit` | Unit test framework | Only if `ENABLE_TESTS` is `ON` |
+| Name          | Description         | Condition                                                                 |
+|---------------|---------------------|---------------------------------------------------------------------------|
+| `google-test` | Unit test framework | Only if `ENABLE_TESTS` is `ON`. Automatically fetch and build via `cmake` |
